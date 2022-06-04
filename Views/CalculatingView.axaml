@@ -1,0 +1,107 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="HierarchyMethodAvaloniaApplication.Views.CalculatingView">
+	<UserControl.Styles>
+		<Style Selector="Label">
+			<Setter Property="VerticalContentAlignment" 
+					Value="Center"/>
+		</Style>
+		<Style Selector="NumericUpDown">
+			<Setter Property="Minimum"
+					Value="0"/>
+		</Style>
+	</UserControl.Styles>
+	
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0">
+			<StackPanel Orientation="Horizontal">
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Количество критериев" />
+					<NumericUpDown x:Name="CriterionsCount_Counter"
+                                   Margin="10,0,0,0" 
+								   Value="{Binding N}"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Количество альтернатив"/>
+					<NumericUpDown x:Name="AlternativesCount_Counter"
+                                   Margin="10,0,0,0" 
+								   Value="{Binding AlternativesCount}"/>
+				</StackPanel>
+				<Button x:Name="GenerateMatrix_Button"
+                        Command="{Binding GenerateMatrixCommand}"
+                        Content="Сгененировать матрицу и расчитать"
+                        Margin="10,0,0,0"/>
+			</StackPanel>
+		</Grid>
+
+		<!--<DataGrid x:Name="Matrix_DataGrid"
+                  Grid.Row="1"/>-->
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"/>
+				<ColumnDefinition Width="auto"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<ListBox Grid.Column="0"
+                     x:Name="CriterionsInput_ListBox"
+                     Items="{Binding Criterios}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<Label Content="{Binding Id}"/>
+							<TextBox Text="{Binding Name}"
+                                     Margin="10,0,0,0"
+                                     Width="150"/>
+							<TextBox Text="{Binding Value}"
+                                     Margin="10,0,0,0"
+                                     Width="50"/>
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+			<ListBox Grid.Column="1"
+                     x:Name="AlternativesInput_ListBox"
+					 Items="{Binding Alternatives}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<Label Content="{Binding Id}"/>
+							<TextBox Text="{Binding Name}"
+                                     Margin="10,0,0,0"
+                                     Width="150"/>
+							<ListBox Grid.Column="0"
+                                     x:Name="AlternativeCriterions_ListBox"
+									 Items="{Binding Criterioes}">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<StackPanel Orientation="Horizontal">
+											<Label Content="{Binding Id}"/>
+											<TextBox Text="{Binding Name}"
+                                                     Margin="10,0,0,0"
+                                                     Width="150"/>
+											<TextBox Text="{Binding Value}"
+                                                     Margin="10,0,0,0"
+                                                     Width="50"/>
+										</StackPanel>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+			<TextBox x:Name="Matrix_TextBox"
+                     Text="{Binding MatrixView}"
+                     Grid.Column="2" />
+		</Grid>
+	</Grid>
+</UserControl>

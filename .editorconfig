@@ -1,0 +1,4 @@
+﻿[*.{cs,vb}]
+
+# IDE0032: Использовать свойство auto
+dotnet_diagnostic.IDE0032.severity = none
